@@ -8,12 +8,12 @@ struct PV {
 }
 
 impl PV {
-    fn new(name: String) -> PV {
+    fn new(name: String) -> Mutex<PV> {
         let mut tmp = PV {
             pv_name: name,
             pv_value: 0
         };
-        tmp
+        Mutex::new(tmp)
     }
 
     fn get(&self) -> i64 {
@@ -27,7 +27,7 @@ impl PV {
 
 fn main() {
     println!("Hello, world!");
-    let wcm = Arc::new(Mutex::new(PV::new("CLA-S01-DIA-WCM-01:Q".to_string())));
+    let wcm = Arc::new(PV::new("CLA-S01-DIA-WCM-01:Q".to_string()));
     let data = Arc::clone(&wcm);
     let data_handle = thread::spawn(move || {
         for i in 0..256 {
