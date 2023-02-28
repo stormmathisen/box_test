@@ -60,3 +60,5 @@ fn main() {
         handle.join().unwrap();
     }
 }
+
+/* Use crossbeam::atomic::AtomicCell to store libca context and a hashmap of PV objects to check against when opening new PVs */
